@@ -20,9 +20,10 @@ const coffeeSeed=()=>{
     })
     coffee.save()
     // console.log(coffee)
+    return (coffee);
 }
 
-// module.exports=coffeeModel;
+module.exports=coffeeModel;
 /*module.exports={
                 coffeeModel,
                 coffeeSeed

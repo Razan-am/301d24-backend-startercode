@@ -14,9 +14,9 @@ class Favourite extends Component {
             show: false,
         }
     }
-    componentDidMount() {
+    componentDidMount=async()=>{
         const url = `${process.env.REACT_APP_BACKEND_URL}/fav-list`;
-        axios.get(url).then(response => {
+        await axios.get(url).then(response => {
             this.setState({
                 newData: response.data
             })
@@ -44,6 +44,11 @@ class Favourite extends Component {
             ingredients: this.state.newIngredients,
         })
     }
+    handleClose = () => {
+        this.setState({
+            show: false
+        })
+    }
     deleteFav = async (id) => {
         const deletedArray = this.state.newData.filter((i, idx) => {
             return idx !== id
@@ -54,11 +59,6 @@ class Favourite extends Component {
         const email = 'razanalamleh@gmail.com';
         const url = `${process.env.REACT_APP_BACKEND_URL}/delete/${id}`;
         await axios.delete(url, { params: email })
-    }
-    handleClose = () => {
-        this.setState({
-            show: false
-        })
     }
     render() {
         return (

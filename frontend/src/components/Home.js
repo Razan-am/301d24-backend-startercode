@@ -11,20 +11,23 @@ class Home extends Component {
             newDescription: '',
             newIngredients: '',
             newImg: '',
+            showData:false
         }
+        console.log('hello');
     }
-    compounentDidMount() {
+    compounentDidMount=async()=> {
         const url = `${process.env.REACT_APP_BACKEND_URL}/retreive`;
-        axios.get(url).then(response => {
+        await axios.get(url).then(response => {
             this.setState({
-                data: response.data
+                data: response.data,
+                showData:true
             })
             console.log('new data', response.data);
         }).catch(error => {
             console.log(error.message);
         })
     }
-
+    
     addingToFav = (e) => {
         e.preventDefault();
         const reqBody = {
@@ -38,13 +41,15 @@ class Home extends Component {
             this.setState({
                 data: response.data
             })
+        }).catch(error => {
+            console.log(error.message);
         })
     }
-
+    
     render() {
         return (
             <>
-                {this.state.data.length > 0 &&
+                {this.state.showData &&
                     this.state.data.map(item => {
                         return <Coffeecard
                         title={item.title}
